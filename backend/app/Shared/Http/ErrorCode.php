@@ -51,6 +51,8 @@ enum ErrorCode: string
 
     public function translation(): string
     {
-        return (string) __('errors.'.$this->value);
+        $message = __('errors.'.$this->value);
+
+        return is_string($message) ? $message : $this->value;
     }
 }
