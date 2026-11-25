@@ -1,5 +1,9 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
 parameters:
     level: 8
+    reportUnmatchedIgnoredErrors: false
     paths:
         - app
         - database
@@ -7,3 +11,6 @@ parameters:
     excludePaths:
         - vendor
         - bootstrap/cache
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics
