@@ -17,7 +17,7 @@
         "laravel/framework": "^13.44",
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.10",
+        "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.4",
         "predis/predis": "^3.0",
         "spatie/laravel-permission": "^8.5"
