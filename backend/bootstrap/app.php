@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Shared\Http\ApiError;
 use App\Shared\Http\ErrorCode;
+use App\Shared\Http\ModuleException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
@@ -32,6 +33,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request): bool => $request->is('api/*') || $request->expectsJson()
         );
+
+        $exceptions->render(function (ModuleException $exception, Request $request) {
+            return ApiError::respond(
+                $exception->errorCode,
+                details: $exception->details,
+            );
+        });
 
         $exceptions->render(function (ValidationException $exception, Request $request) {
             if (! $request->is('api/*')) {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Identity\Domain\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 final class User extends Authenticatable
 {
     use HasApiTokens;
+    use HasUuids;
     use Notifiable;
 
     protected $table = 'users';
