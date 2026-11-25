@@ -1,16 +1,13 @@
-level: 8
-
-treatPhpDocTypesAsCertain: false
-
-paths:
-  - app
-  - database
-  - routes
-
-excludePaths:
-  - vendor
-  - bootstrap/cache
-
-ignoreErrors:
-  - identifier: missingType.generics
-  - identifier: missingType.iterableValue
+parameters:
+    level: 8
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - app
+        - database
+        - routes
+    excludePaths:
+        - vendor
+        - bootstrap/cache
+    ignoreErrors:
+        - identifier: missingType.generics
+        - identifier: missingType.iterableValue

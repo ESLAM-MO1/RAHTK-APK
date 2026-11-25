@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Modules\Identity\Domain\Models\User;
+
 return [
 
     'defaults' => [
@@ -23,7 +25,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Modules\Identity\Domain\Models\User::class,
+            'model' => User::class,
         ],
     ],
 
