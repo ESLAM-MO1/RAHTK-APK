@@ -16,7 +16,12 @@ final class LedgerService
     {
         return Wallet::query()->firstOrCreate(
             ['user_id' => $userId],
-            ['currency' => $currency, 'status' => 'active'],
+            [
+                'currency' => $currency,
+                'balance_halala' => 0,
+                'held_halala' => 0,
+                'status' => 'active',
+            ],
         );
     }
 

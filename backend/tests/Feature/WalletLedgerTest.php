@@ -104,7 +104,7 @@ it('rejects non positive amounts', function (int $amount): void {
     $service = app(LedgerService::class);
     $wallet = $service->walletFor(makeUser()->id);
 
-    expect(fn () => $service->credit($wallet, $amount, 'top_up', 'bad-' . $amount))
+    expect(fn () => $service->credit($wallet, $amount, 'top_up', 'bad-'.$amount))
         ->toThrow(ModuleException::class);
 })->with([0, -100]);
 

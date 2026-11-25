@@ -7,7 +7,6 @@ parameters:
         - app
         - database
         - routes
-        - tests
     excludePaths:
         - vendor
         - bootstrap/cache
