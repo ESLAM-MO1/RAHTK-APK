@@ -10,4 +10,6 @@ parameters:
         - bootstrap/cache
     ignoreErrors:
         - identifier: missingType.iterableValue
+          path: app/Shared/Http/ApiResponse.php
         - identifier: missingType.generics
+          path: app/Shared/Modules/ModuleRegistry.php
