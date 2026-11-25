@@ -17,6 +17,9 @@ fi
 
 git config --global --add safe.directory "$FLUTTER_ROOT" || true
 
+chown -R rahtk:rahtk "$FLUTTER_ROOT"
+su - rahtk -s /bin/bash -c 'git config --global --add safe.directory /opt/flutter'
+
 "$FLUTTER_ROOT/bin/flutter" --version
 
 echo "=== SERVICE COUNT (unchanged expected) ==="

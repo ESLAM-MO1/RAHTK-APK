@@ -10,15 +10,12 @@ export PATH=/opt/flutter/bin:$PATH
 export PUB_CACHE=/srv/rahtk/shared/.pub-cache
 cd /srv/rahtk/staging/mobile
 
-echo "=== PUB GET ==="
-flutter pub get 2>&1 | tail -8
-
-echo "=== FORMAT (write) ==="
-dart format lib test 2>&1 | tail -20
+echo "=== FORMAT CHECK ==="
+dart format --output=none --set-exit-if-changed lib test 2>&1 | tail -5
 
 echo "=== ANALYSE ==="
-flutter analyze --fatal-infos 2>&1 | tail -40
+flutter analyze --fatal-infos 2>&1 | tail -5
 
 echo "=== TESTS ==="
-flutter test 2>&1 | tail -25
+flutter test 2>&1 | tail -3
 '
