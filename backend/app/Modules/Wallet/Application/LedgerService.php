@@ -14,15 +14,19 @@ final class LedgerService
 {
     public function walletFor(string $userId, string $currency = 'SAR'): Wallet
     {
-        return Wallet::query()->firstOrCreate(
-            ['user_id' => $userId],
-            [
-                'currency' => $currency,
-                'balance_halala' => 0,
-                'held_halala' => 0,
-                'status' => 'active',
-            ],
-        );
+        $wallet = Wallet::query()->where('user_id', $userId)->first();
+
+        if ($wallet instanceof Wallet) {
+            return $wallet;
+        }
+
+        return Wallet::query()->create([
+            'user_id' => $userId,
+            'currency' => $currency,
+            'balance_halala' => 0,
+            'held_halala' => 0,
+            'status' => 'active',
+        ]);
     }
 
     public function credit(

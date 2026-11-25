@@ -11,6 +11,8 @@ use App\Modules\Identity\Http\Requests\RequestOtpRequest;
 use App\Modules\Identity\Http\Requests\VerifyOtpRequest;
 use App\Modules\Identity\Support\PhoneNumber;
 use App\Shared\Http\ApiResponse;
+use App\Shared\Http\ErrorCode;
+use App\Shared\Http\ModuleException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -23,10 +25,13 @@ final class AuthController
 
     public function requestOtp(RequestOtpRequest $request): JsonResponse
     {
-        $phone = (string) PhoneNumber::normalize($request->string('phone')->toString());
-        $purpose = $request->string('purpose')->toString();
+        $phone = PhoneNumber::normalize($request->string('phone')->toString());
 
-        $code = $this->otp->request($phone, $purpose, $request->ip());
+        if ($phone === null) {
+            throw new ModuleException(ErrorCode::InvalidPhone);
+        }
+
+        $code = $this->otp->request($phone, $request->string('purpose')->toString(), $request->ip());
 
         $payload = ['phone' => PhoneNumber::mask($phone)];
 
@@ -39,30 +44,34 @@ final class AuthController
 
     public function verifyOtp(VerifyOtpRequest $request): JsonResponse
     {
-        $phone = (string) PhoneNumber::normalize($request->string('phone')->toString());
-        $purpose = $request->string('purpose')->toString();
+        $phone = PhoneNumber::normalize($request->string('phone')->toString());
 
-        $this->otp->verify($phone, $purpose, $request->string('code')->toString());
+        if ($phone === null) {
+            throw new ModuleException(ErrorCode::InvalidPhone);
+        }
 
-        $user = User::query()->firstOrCreate(
-            ['phone' => $phone],
-            [
+        $this->otp->verify($phone, $request->string('purpose')->toString(), $request->string('code')->toString());
+
+        $user = User::query()->where('phone', $phone)->first();
+
+        if (! $user instanceof User) {
+            $user = User::query()->create([
+                'phone' => $phone,
                 'phone_verified_at' => now(),
                 'locale' => 'ar',
                 'status' => 'active',
-            ],
-        );
-
-        if ($user->phone_verified_at === null) {
-            $user->forceFill(['phone_verified_at' => now()])->save();
+            ]);
         }
 
-        $user->forceFill(['last_login_at' => now()])->save();
+        $user->forceFill([
+            'phone_verified_at' => $user->getAttribute('phone_verified_at') ?? now(),
+            'last_login_at' => now(),
+        ])->save();
 
         return ApiResponse::item([
             'tokens' => $this->tokens->issue($user),
             'user' => [
-                'id' => $user->id,
+                'id' => $user->getKey(),
                 'name' => $user->name,
                 'phone' => PhoneNumber::mask($phone),
                 'locale' => $user->locale,
@@ -74,11 +83,15 @@ final class AuthController
     {
         $user = $request->user();
 
+        if (! $user instanceof User) {
+            throw new ModuleException(ErrorCode::Unauthenticated);
+        }
+
         return ApiResponse::item([
-            'id' => $user?->id,
-            'name' => $user?->name,
-            'phone' => $user?->phone,
-            'locale' => $user?->locale,
+            'id' => $user->getKey(),
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'locale' => $user->locale,
         ]);
     }
 }

@@ -16,7 +16,7 @@ final class TokenService
         $expiresAt = now()->addDays((int) config('rahtk.tokens.refresh_ttl_days'));
 
         AuthSession::query()->create([
-            'user_id' => $user->id,
+            'user_id' => $user->getKey(),
             'refresh_token_hash' => hash('sha256', $refresh),
             'family_id' => (string) Str::uuid7(),
             'expires_at' => $expiresAt,

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Modules\Identity\Domain\Models\PersonalAccessToken;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\Sanctum;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,8 @@ final class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+
         RateLimiter::for('api', function (Request $request): Limit {
             $key = $request->user()?->getAuthIdentifier() ?? $request->ip();
 

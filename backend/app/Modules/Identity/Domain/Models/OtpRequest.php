@@ -36,11 +36,15 @@ final class OtpRequest extends Model
 
     public function isExpired(): bool
     {
-        return $this->expires_at->isPast();
+        $expiresAt = $this->getAttribute('expires_at');
+
+        return $expiresAt instanceof \DateTimeInterface
+            ? $expiresAt < new \DateTimeImmutable
+            : true;
     }
 
     public function isConsumed(): bool
     {
-        return $this->consumed_at !== null;
+        return $this->getAttribute('consumed_at') !== null;
     }
 }
