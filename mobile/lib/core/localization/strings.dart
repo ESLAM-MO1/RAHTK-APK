@@ -21,7 +21,8 @@ abstract final class Strings {
   static const String ourServices = 'خدماتنا';
 
   static const String invoicing = 'فاتورة راحتك';
-  static const String invoicingBrief = 'محاسبة، فاتورة إلكترونية، نقاط بيع، متجر';
+  static const String invoicingBrief =
+      'محاسبة، فاتورة إلكترونية، نقاط بيع، متجر';
   static const String shipping = 'شحن راحتك';
   static const String shippingBrief = 'شركات الشحن، بوليصة موحدة، تتبع';
   static const String freelance = 'إنجاز راحتك';
@@ -37,7 +38,8 @@ abstract final class Strings {
   static const String labelAuctions = 'مزاد';
   static const String labelDelivery = 'توصيل';
 
-  static const String networkUnavailable = 'تعذر الاتصال. تحقق من الشبكة وحاول مرة أخرى.';
+  static const String networkUnavailable =
+      'تعذر الاتصال. تحقق من الشبكة وحاول مرة أخرى.';
   static const String requestTimeout = 'انتهت مهلة الطلب. حاول مرة أخرى.';
   static const String sessionExpired = 'انتهت الجلسة. سجل الدخول مرة أخرى.';
   static const String unexpectedError = 'حدث خطأ غير متوقع.';
@@ -46,6 +48,7 @@ abstract final class Strings {
   static const String badCertificate = 'تعذر التحقق من اتصال آمن.';
   static const String requestFailed = 'تعذر إتمام الطلب.';
   static const String noConnection = 'لا يوجد اتصال';
-  static const String checkNetwork = 'تأكد من اتصالك بالإنترنت ثم أعد المحاولة.';
+  static const String checkNetwork =
+      'تأكد من اتصالك بالإنترنت ثم أعد المحاولة.';
   static const String loadFailed = 'تعذر تحميل البيانات';
 }

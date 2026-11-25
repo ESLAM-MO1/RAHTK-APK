@@ -36,7 +36,8 @@ final class StateMessage extends StatelessWidget {
             const SizedBox(height: AppSpacing.x2),
             Text(
               body,
-              style: AppTypography.body.copyWith(color: AppColors.textSecondary),
+              style:
+                  AppTypography.body.copyWith(color: AppColors.textSecondary),
               textAlign: TextAlign.center,
             ),
             if (actionLabel != null && onAction != null) ...<Widget>[

@@ -15,7 +15,9 @@ final class ServicesHubScreen extends StatelessWidget {
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        titleTextStyle: AppTypography.titleLarge.copyWith(color: AppColors.textPrimary),
+        titleTextStyle: AppTypography.titleLarge.copyWith(
+          color: AppColors.textPrimary,
+        ),
       ),
       body: ListView(
         children: const <Widget>[
@@ -65,7 +67,10 @@ final class _PlatformTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.x4, vertical: AppSpacing.x1),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.x4,
+        vertical: AppSpacing.x1,
+      ),
       child: Material(
         color: AppColors.surfaceRaised,
         borderRadius: BorderRadius.circular(AppRadius.container),
@@ -91,7 +96,8 @@ final class _PlatformTile extends StatelessWidget {
                       const SizedBox(height: AppSpacing.x1),
                       Text(
                         subtitle,
-                        style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
+                        style: AppTypography.caption
+                            .copyWith(color: AppColors.textSecondary),
                       ),
                     ],
                   ),

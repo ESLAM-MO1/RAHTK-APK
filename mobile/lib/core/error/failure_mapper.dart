@@ -15,7 +15,10 @@ final class FailureMapper {
       return error;
     }
 
-    return const ServerFailure(code: 'unexpected', message: Strings.unexpectedError);
+    return const ServerFailure(
+      code: 'unexpected',
+      message: Strings.unexpectedError,
+    );
   }
 
   AppFailure _fromDio(DioException error) {
@@ -23,13 +26,16 @@ final class FailureMapper {
       DioExceptionType.connectionTimeout ||
       DioExceptionType.sendTimeout ||
       DioExceptionType.receiveTimeout ||
-      DioExceptionType.transformTimeout =>
-        const TimeoutFailure(),
+      DioExceptionType.transformTimeout => const TimeoutFailure(),
       DioExceptionType.connectionError => const NetworkFailure(),
-      DioExceptionType.cancel =>
-        const ServerFailure(code: 'cancelled', message: Strings.requestCancelled),
-      DioExceptionType.badCertificate =>
-        const ServerFailure(code: 'bad_certificate', message: Strings.badCertificate),
+      DioExceptionType.cancel => const ServerFailure(
+        code: 'cancelled',
+        message: Strings.requestCancelled,
+      ),
+      DioExceptionType.badCertificate => const ServerFailure(
+        code: 'bad_certificate',
+        message: Strings.badCertificate,
+      ),
       DioExceptionType.badResponse => _fromResponse(error.response),
       DioExceptionType.unknown => const NetworkFailure(),
     };
@@ -37,7 +43,10 @@ final class FailureMapper {
 
   AppFailure _fromResponse(Response<dynamic>? response) {
     if (response == null) {
-      return const ServerFailure(code: 'no_response', message: Strings.noResponse);
+      return const ServerFailure(
+        code: 'no_response',
+        message: Strings.noResponse,
+      );
     }
 
     final status = response.statusCode ?? 0;
@@ -45,7 +54,10 @@ final class FailureMapper {
     final errorBody = body is Map<String, dynamic> ? body['error'] : null;
 
     if (errorBody is! Map<String, dynamic>) {
-      return ServerFailure(code: 'http_$status', message: Strings.requestFailed);
+      return ServerFailure(
+        code: 'http_$status',
+        message: Strings.requestFailed,
+      );
     }
 
     if (status == 401) {
@@ -63,7 +75,9 @@ final class FailureMapper {
         final value = entry.value;
 
         if (value is List) {
-          fields[entry.key] = value.map((dynamic item) => item.toString()).toList();
+          fields[entry.key] = value
+              .map((dynamic item) => item.toString())
+              .toList();
         }
       }
 

@@ -44,8 +44,10 @@ final class WalletBalanceCard extends StatelessWidget {
                 TextButton(
                   onPressed: onTopUp,
                   style: TextButton.styleFrom(
-                    minimumSize: const Size(AppSize.touchTarget, AppSize.touchTarget),
-                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.x2),
+                    minimumSize:
+                        const Size(AppSize.touchTarget, AppSize.touchTarget),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppSpacing.x2),
                     foregroundColor: AppColors.onPrimary,
                     textStyle: AppTypography.label,
                   ),

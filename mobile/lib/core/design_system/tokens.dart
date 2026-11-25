@@ -161,18 +161,18 @@ abstract final class AppMotion {
 
 abstract final class AppTheme {
   static ThemeData light() => _build(
-    surface: AppColors.surface,
-    surfaceRaised: AppColors.surfaceRaised,
-    border: AppColors.border,
-    primary: AppColors.primary,
-  );
+        surface: AppColors.surface,
+        surfaceRaised: AppColors.surfaceRaised,
+        border: AppColors.border,
+        primary: AppColors.primary,
+      );
 
   static ThemeData dark() => _build(
-    surface: AppColorsDark.surface,
-    surfaceRaised: AppColorsDark.surfaceRaised,
-    border: AppColorsDark.border,
-    primary: AppColorsDark.primary,
-  );
+        surface: AppColorsDark.surface,
+        surfaceRaised: AppColorsDark.surfaceRaised,
+        border: AppColorsDark.border,
+        primary: AppColorsDark.primary,
+      );
 
   static ThemeData _build({
     required Color surface,
@@ -184,7 +184,9 @@ abstract final class AppTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primary,
-        brightness: surface.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark,
+        brightness: surface.computeLuminance() > 0.5
+            ? Brightness.light
+            : Brightness.dark,
       ),
       scaffoldBackgroundColor: surface,
       fontFamily: AppTypography.arabicFamily,

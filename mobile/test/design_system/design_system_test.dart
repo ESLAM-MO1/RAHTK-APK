@@ -60,20 +60,24 @@ void main() {
     expect(AppSize.buttonHeight, greaterThanOrEqualTo(AppSize.touchTarget));
   });
 
-  testWidgets('wallet card renders a formatted balance', (WidgetTester tester) async {
-    await tester.pumpWidget(wrap(const WalletBalanceCard(balanceHalala: 125075)));
+  testWidgets('wallet card renders a formatted balance',
+      (WidgetTester tester) async {
+    await tester
+        .pumpWidget(wrap(const WalletBalanceCard(balanceHalala: 125075)));
 
     expect(find.text(Strings.walletBalance), findsOneWidget);
     expect(find.text('1,250.75 ${Strings.currencySymbol}'), findsOneWidget);
   });
 
-  testWidgets('wallet card renders a skeleton while loading', (WidgetTester tester) async {
+  testWidgets('wallet card renders a skeleton while loading',
+      (WidgetTester tester) async {
     await tester.pumpWidget(wrap(const WalletBalanceCard(isLoading: true)));
 
     expect(find.text('0.00 ${Strings.currencySymbol}'), findsNothing);
   });
 
-  testWidgets('wallet card exposes the top up action when provided', (WidgetTester tester) async {
+  testWidgets('wallet card exposes the top up action when provided',
+      (WidgetTester tester) async {
     var taps = 0;
 
     await tester.pumpWidget(

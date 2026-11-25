@@ -8,7 +8,8 @@ abstract final class Money {
     final normalized = riyals.replaceAll(',', '').trim();
     final parts = normalized.split('.');
     final whole = int.tryParse(parts.first) ?? 0;
-    final fractionText = parts.length > 1 ? parts[1].padRight(2, '0').substring(0, 2) : '00';
+    final fractionText =
+        parts.length > 1 ? parts[1].padRight(2, '0').substring(0, 2) : '00';
     final fraction = int.tryParse(fractionText) ?? 0;
 
     return (whole * halalaPerRiyal) + fraction;
@@ -34,7 +35,8 @@ abstract final class Money {
     return negative ? '-$amount $currencySymbol' : '$amount $currencySymbol';
   }
 
-  static int vatOf(int netHalala, {double rate = 0.15}) => (netHalala * rate).round();
+  static int vatOf(int netHalala, {double rate = 0.15}) =>
+      (netHalala * rate).round();
 
   static int totalWithVat(int netHalala, {double rate = 0.15}) =>
       netHalala + vatOf(netHalala, rate: rate);

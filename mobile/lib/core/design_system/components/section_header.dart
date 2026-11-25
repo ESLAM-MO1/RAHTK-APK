@@ -36,7 +36,8 @@ final class SectionHeader extends StatelessWidget {
             TextButton(
               onPressed: onAction,
               style: TextButton.styleFrom(
-                minimumSize: const Size(AppSize.touchTarget, AppSize.touchTarget),
+                minimumSize:
+                    const Size(AppSize.touchTarget, AppSize.touchTarget),
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.x2),
                 foregroundColor: AppColors.primary,
                 textStyle: AppTypography.label,
