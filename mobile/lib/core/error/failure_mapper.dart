@@ -26,16 +26,17 @@ final class FailureMapper {
       DioExceptionType.connectionTimeout ||
       DioExceptionType.sendTimeout ||
       DioExceptionType.receiveTimeout ||
-      DioExceptionType.transformTimeout => const TimeoutFailure(),
+      DioExceptionType.transformTimeout =>
+        const TimeoutFailure(),
       DioExceptionType.connectionError => const NetworkFailure(),
       DioExceptionType.cancel => const ServerFailure(
-        code: 'cancelled',
-        message: Strings.requestCancelled,
-      ),
+          code: 'cancelled',
+          message: Strings.requestCancelled,
+        ),
       DioExceptionType.badCertificate => const ServerFailure(
-        code: 'bad_certificate',
-        message: Strings.badCertificate,
-      ),
+          code: 'bad_certificate',
+          message: Strings.badCertificate,
+        ),
       DioExceptionType.badResponse => _fromResponse(error.response),
       DioExceptionType.unknown => const NetworkFailure(),
     };
@@ -75,9 +76,8 @@ final class FailureMapper {
         final value = entry.value;
 
         if (value is List) {
-          fields[entry.key] = value
-              .map((dynamic item) => item.toString())
-              .toList();
+          fields[entry.key] =
+              value.map((dynamic item) => item.toString()).toList();
         }
       }
 

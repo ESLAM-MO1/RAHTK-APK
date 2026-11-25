@@ -12,12 +12,12 @@ sealed class AppFailure implements Exception {
 
 final class NetworkFailure extends AppFailure {
   const NetworkFailure()
-    : super(code: 'network_unavailable', message: Strings.networkUnavailable);
+      : super(code: 'network_unavailable', message: Strings.networkUnavailable);
 }
 
 final class TimeoutFailure extends AppFailure {
   const TimeoutFailure()
-    : super(code: 'request_timeout', message: Strings.requestTimeout);
+      : super(code: 'request_timeout', message: Strings.requestTimeout);
 }
 
 final class ServerFailure extends AppFailure {
@@ -32,12 +32,12 @@ final class ServerFailure extends AppFailure {
 
 final class ValidationFailure extends AppFailure {
   const ValidationFailure({required super.message, required this.fields})
-    : super(code: 'validation_failed');
+      : super(code: 'validation_failed');
 
   final Map<String, List<String>> fields;
 }
 
 final class UnauthenticatedFailure extends AppFailure {
   const UnauthenticatedFailure()
-    : super(code: 'unauthenticated', message: Strings.sessionExpired);
+      : super(code: 'unauthenticated', message: Strings.sessionExpired);
 }

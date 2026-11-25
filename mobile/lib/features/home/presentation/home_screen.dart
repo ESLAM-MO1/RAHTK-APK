@@ -12,12 +12,12 @@ final class HomeScreen extends StatelessWidget {
 
   static const List<({IconData icon, String label})> services =
       <({IconData icon, String label})>[
-        (icon: Icons.receipt_long_outlined, label: Strings.labelInvoicing),
-        (icon: Icons.local_shipping_outlined, label: Strings.labelShipping),
-        (icon: Icons.work_outline, label: Strings.labelFreelance),
-        (icon: Icons.gavel_outlined, label: Strings.labelAuctions),
-        (icon: Icons.delivery_dining_outlined, label: Strings.labelDelivery),
-      ];
+    (icon: Icons.receipt_long_outlined, label: Strings.labelInvoicing),
+    (icon: Icons.local_shipping_outlined, label: Strings.labelShipping),
+    (icon: Icons.work_outline, label: Strings.labelFreelance),
+    (icon: Icons.gavel_outlined, label: Strings.labelAuctions),
+    (icon: Icons.delivery_dining_outlined, label: Strings.labelDelivery),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -79,38 +79,37 @@ final class _ServiceGrid extends StatelessWidget {
       child: Wrap(
         spacing: AppSpacing.x3,
         runSpacing: AppSpacing.x3,
-        children: HomeScreen.services
-            .map((({IconData icon, String label}) service) {
-              return SizedBox(
-                width: 96,
-                child: InkWell(
-                  onTap: () {},
-                  borderRadius: BorderRadius.circular(AppRadius.container),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.x4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.surfaceRaised,
-                      borderRadius: BorderRadius.circular(AppRadius.container),
-                      border: Border.all(color: AppColors.border),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Icon(
-                          service.icon,
-                          size: AppSize.iconLarge,
-                          color: AppColors.primary,
-                        ),
-                        const SizedBox(height: AppSpacing.x2),
-                        Text(service.label, style: AppTypography.caption),
-                      ],
-                    ),
-                  ),
+        children:
+            HomeScreen.services.map((({IconData icon, String label}) service) {
+          return SizedBox(
+            width: 96,
+            child: InkWell(
+              onTap: () {},
+              borderRadius: BorderRadius.circular(AppRadius.container),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.x4,
                 ),
-              );
-            })
-            .toList(),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceRaised,
+                  borderRadius: BorderRadius.circular(AppRadius.container),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      service.icon,
+                      size: AppSize.iconLarge,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(height: AppSpacing.x2),
+                    Text(service.label, style: AppTypography.caption),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
