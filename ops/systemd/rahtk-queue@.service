@@ -1,0 +1,18 @@
+[Unit]
+Description=Rahtk queue worker (%i)
+After=network.target postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=rahtk
+Group=rahtk
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=90
+MemoryMax=256M
+WorkingDirectory=/srv/rahtk/%i
+ExecStart=/usr/bin/php /srv/rahtk/%i/artisan queue:work redis --queue=high,default,low --sleep=1 --tries=3 --max-time=3600 --memory=192
+
+[Install]
+WantedBy=multi-user.target
