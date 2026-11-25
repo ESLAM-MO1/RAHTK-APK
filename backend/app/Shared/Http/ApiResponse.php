@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Http;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 final class ApiResponse
 {
@@ -26,8 +27,8 @@ final class ApiResponse
         return self::item($data, 201);
     }
 
-    public static function noContent(): JsonResponse
+    public static function noContent(): Response
     {
-        return new JsonResponse(null, 204);
+        return new Response('', 204);
     }
 }

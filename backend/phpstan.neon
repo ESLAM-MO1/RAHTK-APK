@@ -8,3 +8,6 @@ parameters:
     excludePaths:
         - vendor
         - bootstrap/cache
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics

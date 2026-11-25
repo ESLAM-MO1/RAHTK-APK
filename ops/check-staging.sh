@@ -12,7 +12,7 @@ echo "=== PHPSTAN ==="
 ./vendor/bin/phpstan analyse --no-progress --memory-limit=512M 2>&1 | tail -25
 
 echo "=== COMMENT SCAN ==="
-php ../../tooling/comment-scan.php
+php ../tooling/comment-scan.php
 
 echo "=== TESTS ==="
 php artisan test 2>&1 | tail -30
