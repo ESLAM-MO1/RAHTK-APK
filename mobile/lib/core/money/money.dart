@@ -1,4 +1,4 @@
-import 'core/localization/strings.dart';
+import '../localization/strings.dart';
 
 abstract final class Money {
   static const int halalaPerRiyal = 100;

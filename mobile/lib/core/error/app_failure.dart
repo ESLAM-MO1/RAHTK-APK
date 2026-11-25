@@ -25,7 +25,8 @@ final class ServerFailure extends AppFailure {
 }
 
 final class ValidationFailure extends AppFailure {
-  const ValidationFailure({required super.message, required this.fields});
+  const ValidationFailure({required super.message, required this.fields})
+    : super(code: 'validation_failed');
 
   final Map<String, List<String>> fields;
 }

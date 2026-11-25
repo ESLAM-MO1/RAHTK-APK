@@ -56,15 +56,68 @@ abstract final class AppTypography {
   static const String arabicFamily = 'IBMPlexSansArabic';
   static const String numericFamily = 'Manrope';
 
-  static const TextStyle display = TextStyle(fontSize: 32, height: 1.2500, fontWeight: FontWeight.w700, letterSpacing: 0);
-  static const TextStyle headline = TextStyle(fontSize: 24, height: 1.3333, fontWeight: FontWeight.w700, letterSpacing: 0);
-  static const TextStyle titleLarge = TextStyle(fontSize: 22, height: 1.2727, fontWeight: FontWeight.w600, letterSpacing: 0);
-  static const TextStyle title = TextStyle(fontSize: 18, height: 1.3333, fontWeight: FontWeight.w600, letterSpacing: 0);
-  static const TextStyle bodyLarge = TextStyle(fontSize: 16, height: 1.5000, fontWeight: FontWeight.w400, letterSpacing: 0);
-  static const TextStyle body = TextStyle(fontSize: 14, height: 1.5714, fontWeight: FontWeight.w400, letterSpacing: 0);
-  static const TextStyle label = TextStyle(fontSize: 14, height: 1.4286, fontWeight: FontWeight.w500, letterSpacing: 0);
-  static const TextStyle caption = TextStyle(fontSize: 12, height: 1.5000, fontWeight: FontWeight.w400, letterSpacing: 0);
-  static const TextStyle micro = TextStyle(fontSize: 11, height: 1.4545, fontWeight: FontWeight.w500, letterSpacing: 0.2);
+  static const TextStyle display = TextStyle(
+    fontSize: 32,
+    height: 1.2500,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle headline = TextStyle(
+    fontSize: 24,
+    height: 1.3333,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle titleLarge = TextStyle(
+    fontSize: 22,
+    height: 1.2727,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle title = TextStyle(
+    fontSize: 18,
+    height: 1.3333,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle bodyLarge = TextStyle(
+    fontSize: 16,
+    height: 1.5000,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle body = TextStyle(
+    fontSize: 14,
+    height: 1.5714,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle label = TextStyle(
+    fontSize: 14,
+    height: 1.4286,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle caption = TextStyle(
+    fontSize: 12,
+    height: 1.5000,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle micro = TextStyle(
+    fontSize: 11,
+    height: 1.4545,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.2,
+  );
 }
 
 abstract final class AppSpacing {
@@ -107,19 +160,35 @@ abstract final class AppMotion {
 }
 
 abstract final class AppTheme {
-  static ThemeData light() => _build(AppColors.surface, AppColors.surfaceRaised, AppColors.textPrimary, AppColors.primary);
+  static ThemeData light() => _build(
+    surface: AppColors.surface,
+    surfaceRaised: AppColors.surfaceRaised,
+    border: AppColors.border,
+    primary: AppColors.primary,
+  );
 
-  static ThemeData dark() => _build(AppColorsDark.surface, AppColorsDark.surfaceRaised, AppColorsDark.textPrimary, AppColorsDark.primary);
+  static ThemeData dark() => _build(
+    surface: AppColorsDark.surface,
+    surfaceRaised: AppColorsDark.surfaceRaised,
+    border: AppColorsDark.border,
+    primary: AppColorsDark.primary,
+  );
 
-  static ThemeData _build(Color surface, Color surfaceRaised, Color onSurface, Color primary) {
-    final scheme = ColorScheme.fromSeed(seedColor: primary, brightness: surface.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark);
-
+  static ThemeData _build({
+    required Color surface,
+    required Color surfaceRaised,
+    required Color border,
+    required Color primary,
+  }) {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: scheme,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
+        brightness: surface.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark,
+      ),
       scaffoldBackgroundColor: surface,
       fontFamily: AppTypography.arabicFamily,
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         displayLarge: AppTypography.display,
         headlineMedium: AppTypography.headline,
         titleLarge: AppTypography.titleLarge,
@@ -128,33 +197,39 @@ abstract final class AppTheme {
         bodyMedium: AppTypography.body,
         labelLarge: AppTypography.label,
         bodySmall: AppTypography.caption,
+        labelSmall: AppTypography.micro,
       ),
       cardTheme: CardThemeData(
         color: surfaceRaised,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.container),
-          side: BorderSide(color: AppColors.border),
+          side: BorderSide(color: border),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           minimumSize: const Size.fromHeight(AppSize.buttonHeight),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.control)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.control),
+          ),
           textStyle: AppTypography.label,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: surfaceRaised,
-        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.x4, vertical: AppSpacing.x3),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.x4,
+          vertical: AppSpacing.x3,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.control),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.control),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: border),
         ),
       ),
       visualDensity: VisualDensity.standard,

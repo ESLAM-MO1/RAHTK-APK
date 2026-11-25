@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rahtk_mobile/app.dart';
 import 'package:rahtk_mobile/core/design_system/tokens.dart';
 import 'package:rahtk_mobile/core/localization/strings.dart';
 import 'package:rahtk_mobile/features/wallet/presentation/wallet_balance_card.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
 
 Widget wrap(Widget child) => MaterialApp(
       theme: AppTheme.light(),

@@ -9,8 +9,6 @@ const source = resolve(root, 'design/tokens.json');
 const dartTarget = resolve(root, 'mobile/lib/core/design_system/tokens.dart');
 const cssTarget = resolve(root, 'backend/resources/css/tokens.css');
 
-const pascal = (value) => value.charAt(0).toUpperCase() + value.slice(1);
-
 const hexToArgb = (hex) => `0xFF${hex.replace('#', '').toUpperCase()}`;
 
 const tokenData = JSON.parse(await readFile(source, 'utf8'));
@@ -20,13 +18,28 @@ const colorEntries = (palette) =>
     .map(([key, value]) => `  static const Color ${key} = Color(${hexToArgb(value)});`)
     .join('\n');
 
+const weightName = (weight) => {
+  if (weight >= 700) return 'w700';
+  if (weight >= 600) return 'w600';
+  if (weight >= 500) return 'w500';
+  return 'w400';
+};
+
 const styleEntries = (scale) =>
   Object.entries(scale)
     .map(([key, value]) => {
-      const weight = value.weight >= 700 ? 'w700' : value.weight >= 600 ? 'w600' : value.weight >= 500 ? 'w500' : 'w400';
-      return `  static const TextStyle ${key} = TextStyle(fontSize: ${value.size}, height: ${(value.height / value.size).toFixed(4)}, fontWeight: FontWeight.${weight}, letterSpacing: ${value.letterSpacing});`;
+      const height = (value.height / value.size).toFixed(4);
+
+      return [
+        `  static const TextStyle ${key} = TextStyle(`,
+        `    fontSize: ${value.size},`,
+        `    height: ${height},`,
+        `    fontWeight: FontWeight.${weightName(value.weight)},`,
+        `    letterSpacing: ${value.letterSpacing},`,
+        '  );',
+      ].join('\n');
     })
-    .join('\n');
+    .join('\n\n');
 
 const spacingEntries = Object.entries(tokenData.spacing)
   .map(([key, value]) => `  static const double ${key} = ${value};`)
@@ -80,19 +93,35 @@ abstract final class AppMotion {
 }
 
 abstract final class AppTheme {
-  static ThemeData light() => _build(AppColors.surface, AppColors.surfaceRaised, AppColors.textPrimary, AppColors.primary);
+  static ThemeData light() => _build(
+    surface: AppColors.surface,
+    surfaceRaised: AppColors.surfaceRaised,
+    border: AppColors.border,
+    primary: AppColors.primary,
+  );
 
-  static ThemeData dark() => _build(AppColorsDark.surface, AppColorsDark.surfaceRaised, AppColorsDark.textPrimary, AppColorsDark.primary);
+  static ThemeData dark() => _build(
+    surface: AppColorsDark.surface,
+    surfaceRaised: AppColorsDark.surfaceRaised,
+    border: AppColorsDark.border,
+    primary: AppColorsDark.primary,
+  );
 
-  static ThemeData _build(Color surface, Color surfaceRaised, Color onSurface, Color primary) {
-    final scheme = ColorScheme.fromSeed(seedColor: primary, brightness: surface.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark);
-
+  static ThemeData _build({
+    required Color surface,
+    required Color surfaceRaised,
+    required Color border,
+    required Color primary,
+  }) {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: scheme,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
+        brightness: surface.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark,
+      ),
       scaffoldBackgroundColor: surface,
       fontFamily: AppTypography.arabicFamily,
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         displayLarge: AppTypography.display,
         headlineMedium: AppTypography.headline,
         titleLarge: AppTypography.titleLarge,
@@ -101,33 +130,39 @@ abstract final class AppTheme {
         bodyMedium: AppTypography.body,
         labelLarge: AppTypography.label,
         bodySmall: AppTypography.caption,
+        labelSmall: AppTypography.micro,
       ),
       cardTheme: CardThemeData(
         color: surfaceRaised,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.container),
-          side: BorderSide(color: AppColors.border),
+          side: BorderSide(color: border),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           minimumSize: const Size.fromHeight(AppSize.buttonHeight),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.control)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.control),
+          ),
           textStyle: AppTypography.label,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: surfaceRaised,
-        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.x4, vertical: AppSpacing.x3),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.x4,
+          vertical: AppSpacing.x3,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.control),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.control),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: border),
         ),
       ),
       visualDensity: VisualDensity.standard,

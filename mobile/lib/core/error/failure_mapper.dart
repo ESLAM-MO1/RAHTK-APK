@@ -22,7 +22,8 @@ final class FailureMapper {
     return switch (error.type) {
       DioExceptionType.connectionTimeout ||
       DioExceptionType.sendTimeout ||
-      DioExceptionType.receiveTimeout =>
+      DioExceptionType.receiveTimeout ||
+      DioExceptionType.transformTimeout =>
         const TimeoutFailure(),
       DioExceptionType.connectionError => const NetworkFailure(),
       DioExceptionType.cancel =>
