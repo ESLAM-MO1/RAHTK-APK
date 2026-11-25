@@ -1,0 +1,23 @@
+includePaths:
+  - ./app
+  - ./database
+  - ./routes
+
+level: 8
+
+treatPhpDocTypesAsCertain: false
+
+paths:
+  - app
+  - database
+  - routes
+
+excludePaths:
+  - app/Modules/*/Data/Migrations/*
+  - vendor
+
+ignoreErrors:
+  - identifier: missingType.generics
+  - identifier: missingType.iterableValue
+
+checkMissingIterableValueType: false
